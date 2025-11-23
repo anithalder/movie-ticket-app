@@ -1,0 +1,4 @@
+./MovieTicketAPI/node_modules/
+./MovieTicketAPI/.vs/
+MovieTicketClient/node_modules/
+MovieTicketClient/.vs/
