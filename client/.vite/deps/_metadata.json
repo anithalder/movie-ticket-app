@@ -1,0 +1,106 @@
+{
+  "hash": "bd61d533",
+  "configHash": "a33d5790",
+  "lockfileHash": "e08fc4a2",
+  "browserHash": "ccc85b3b",
+  "optimized": {
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "b4c280f8",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "b38af730",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "0ef754e2",
+      "needsInterop": false
+    },
+    "react-hot-toast": {
+      "src": "../../node_modules/react-hot-toast/dist/index.mjs",
+      "file": "react-hot-toast.js",
+      "fileHash": "b3560ebd",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "e704b5d0",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "09c7e5ea",
+      "needsInterop": false
+    },
+    "react-player": {
+      "src": "../../node_modules/react-player/lib/index.js",
+      "file": "react-player.js",
+      "fileHash": "d8cb370a",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "Mixcloud-YSUQKXVP": {
+      "file": "Mixcloud-YSUQKXVP.js"
+    },
+    "Vidyard-N4O6NZCS": {
+      "file": "Vidyard-N4O6NZCS.js"
+    },
+    "Kaltura-BYI4KNDS": {
+      "file": "Kaltura-BYI4KNDS.js"
+    },
+    "FilePlayer-53BFCDKN": {
+      "file": "FilePlayer-53BFCDKN.js"
+    },
+    "Preview-XNUODDME": {
+      "file": "Preview-XNUODDME.js"
+    },
+    "SoundCloud-YYONG5R4": {
+      "file": "SoundCloud-YYONG5R4.js"
+    },
+    "Vimeo-CY56RZVE": {
+      "file": "Vimeo-CY56RZVE.js"
+    },
+    "Mux-DYCH6KGA": {
+      "file": "Mux-DYCH6KGA.js"
+    },
+    "Facebook-LQWOR63G": {
+      "file": "Facebook-LQWOR63G.js"
+    },
+    "Streamable-CTBD4GNU": {
+      "file": "Streamable-CTBD4GNU.js"
+    },
+    "Wistia-ZKOAUW7K": {
+      "file": "Wistia-ZKOAUW7K.js"
+    },
+    "Twitch-AGFB73K4": {
+      "file": "Twitch-AGFB73K4.js"
+    },
+    "DailyMotion-DBNQCNER": {
+      "file": "DailyMotion-DBNQCNER.js"
+    },
+    "chunk-OE4GHL35": {
+      "file": "chunk-OE4GHL35.js"
+    },
+    "YouTube-MKALU2SJ": {
+      "file": "YouTube-MKALU2SJ.js"
+    },
+    "chunk-N3ZUS33M": {
+      "file": "chunk-N3ZUS33M.js"
+    },
+    "chunk-E2VN4SNS": {
+      "file": "chunk-E2VN4SNS.js"
+    },
+    "chunk-V4OQ3NZ2": {
+      "file": "chunk-V4OQ3NZ2.js"
+    }
+  }
+}
