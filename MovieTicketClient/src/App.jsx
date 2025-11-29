@@ -1,11 +1,14 @@
 import Navbar from "./components/Navbar";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import MovieDetails from "./pages/MovieDetails";
 import SeatLayout from "./pages/SeatLayout";
 import MyBookings from "./pages/MyBookings";
 import Favorite from "./pages/Favorite";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile"; // Import Profile
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
 import Layout from "./pages/admin/Layout";
@@ -14,18 +17,19 @@ import AddShows from "./pages/admin/AddShows";
 import ListShows from "./pages/admin/ListShows";
 import ListBookings from "./pages/admin/ListBookings";
 import { useAppContext } from "./context/AppContext";
-import { SignIn } from "@clerk/clerk-react";
 import Loading from "./components/Loading";
 
 const App = () => {
-  const isAdminRoute = useLocation().pathname.startsWith("/admin");
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isAuthRoute = ["/login", "/register"].includes(location.pathname);
 
   const { user } = useAppContext();
 
   return (
     <>
       <Toaster />
-      {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && !isAuthRoute && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
@@ -35,18 +39,20 @@ const App = () => {
         <Route path="/loading/:nextUrl" element={<Loading />} />
         <Route path="/favorite" element={<Favorite />} />
 
+        {/* Add Profile Route */}
+        <Route
+          path="/profile"
+          element={user ? <Profile /> : <Navigate to="/login" />}
+        />
+
+        {/* Auth Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
         {/* Admin Routes */}
         <Route
           path="/admin/*"
-          element={
-            user ? (
-              <Layout />
-            ) : (
-              <div className="min-h-screen flex justify-center items-center">
-                <SignIn fallbackRedirectUrl={"/admin"} />
-              </div>
-            )
-          }
+          element={user ? <Layout /> : <Navigate to="/login" />}
         >
           <Route index element={<Dashboard />} />
           <Route path="add-shows" element={<AddShows />} />
@@ -54,7 +60,7 @@ const App = () => {
           <Route path="list-bookings" element={<ListBookings />} />
         </Route>
       </Routes>
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && !isAuthRoute && <Footer />}
     </>
   );
 };

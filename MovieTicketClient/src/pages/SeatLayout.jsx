@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
@@ -25,7 +26,8 @@ const SeatLayout = () => {
 
   const navigate = useNavigate();
 
-  const { axios, getToken, user } = useAppContext();
+  // Removed getToken
+  const { axios, user } = useAppContext();
 
   const getShow = async () => {
     try {
@@ -98,11 +100,13 @@ const SeatLayout = () => {
       if (!selectedTime || !selectedSeats.length)
         return toast.error("Please select a time and seats");
 
-      const { data } = await axios.post(
-        "/api/booking/create",
-        { showId: selectedTime.showId, selectedSeats },
-        { headers: { Authorization: `Bearer ${await getToken()}` } }
-      );
+      // Removed headers object
+      const { data } = await axios.post("/api/booking/createBooking", {
+        showId: selectedTime.showId,
+        userId: user.id, // You might need to store user ID in context or fetch it
+        numberOfSeats: selectedSeats.length,
+        seatNumbers: selectedSeats,
+      });
 
       if (data.success) {
         window.location.href = data.url;
@@ -126,7 +130,6 @@ const SeatLayout = () => {
 
   return show ? (
     <div className="flex flex-col md:flex-row px-6 md:px-16 lg:px-40 py-30 md:pt-50">
-      {/* Available Timings */}
       <div className="w-60 bg-primary/10 border border-primary/20 rounded-lg py-10 h-max md:sticky md:top-30">
         <p className="text-lg font-semibold px-6">Available Timings</p>
         <div className="mt-5 space-y-1">
@@ -147,7 +150,6 @@ const SeatLayout = () => {
         </div>
       </div>
 
-      {/* Seats Layout */}
       <div className="relative flex-1 flex flex-col items-center max-md:mt-16">
         <BlurCircle top="-100px" left="-100px" />
         <BlurCircle bottom="0" right="0" />

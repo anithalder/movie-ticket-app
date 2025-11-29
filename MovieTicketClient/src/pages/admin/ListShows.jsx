@@ -5,7 +5,8 @@ import { dateFormat } from "../../lib/dateFormat";
 import { useAppContext } from "../../context/AppContext";
 
 const ListShows = () => {
-  const { axios, getToken, user } = useAppContext();
+  // Removed getToken
+  const { axios, user } = useAppContext();
 
   const currency = import.meta.env.VITE_CURRENCY;
 
@@ -14,9 +15,8 @@ const ListShows = () => {
 
   const getAllShow = async () => {
     try {
-      const { data } = await axios.get("/api/admin/all-shows", {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      });
+      // Removed headers object
+      const { data } = await axios.get("/api/admin/all-shows");
       setShows(data.shows);
       setLoading(false);
     } catch (error) {

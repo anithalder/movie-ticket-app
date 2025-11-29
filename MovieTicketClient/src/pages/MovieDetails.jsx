@@ -14,10 +14,10 @@ const MovieDetails = () => {
   const { id } = useParams();
   const [show, setShow] = useState(null);
 
+  // Removed getToken
   const {
     shows,
     axios,
-    getToken,
     user,
     fetchFavoriteMovies,
     favoriteMovies,
@@ -39,11 +39,10 @@ const MovieDetails = () => {
     try {
       if (!user) return toast.error("Please login to proceed");
 
-      const { data } = await axios.post(
-        "/api/user/update-favorite",
-        { movieId: id },
-        { headers: { Authorization: `Bearer ${await getToken()}` } }
-      );
+      // Removed headers object
+      const { data } = await axios.post("/api/user/update-favorite", {
+        movieId: id,
+      });
 
       if (data.success) {
         await fetchFavoriteMovies();

@@ -7,16 +7,16 @@ import { useAppContext } from "../../context/AppContext";
 const ListBookings = () => {
   const currency = import.meta.env.VITE_CURRENCY;
 
-  const { axios, getToken, user } = useAppContext();
+  // Removed getToken
+  const { axios, user } = useAppContext();
 
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllBookings = async () => {
     try {
-      const { data } = await axios.get("/api/admin/all-bookings", {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      });
+      // Removed headers object
+      const { data } = await axios.get("/api/admin/all-bookings");
       setBookings(data.bookings);
     } catch (error) {
       console.error("Error fetching bookings:", error);

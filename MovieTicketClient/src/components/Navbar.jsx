@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { MenuIcon, SearchIcon, TicketPlus, XIcon } from "lucide-react";
-import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { MenuIcon, SearchIcon, TicketPlus, XIcon, LogOut, User } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useUser();
-  const { openSignIn } = useClerk();
-
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  
+  const { user, logout, favoriteMovies } = useAppContext();
   const navigate = useNavigate();
 
-  const { favoriteMovies } = useAppContext();
-
   return (
-    <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5">
+    <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 bg-black/50 backdrop-blur-sm">
       <Link to="/" className="max-md:flex-1">
         <img src={assets.logo} alt="logo" className="w-36 h-auto" />
       </Link>
@@ -81,23 +78,67 @@ const Navbar = () => {
 
       <div className="flex items-center gap-8">
         <SearchIcon className="max-md:hidden w-6 h-6 cursor-pointer" />
+        
         {!user ? (
           <button
-            onClick={openSignIn}
+            onClick={() => navigate("/login")}
             className="px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer"
           >
             Login
           </button>
         ) : (
-          <UserButton>
-            <UserButton.MenuItems>
-              <UserButton.Action
-                label="My Bookings"
-                labelIcon={<TicketPlus width={15} />}
-                onClick={() => navigate("/my-bookings")}
+          <div className="relative group">
+            <button 
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="flex items-center gap-2 focus:outline-none"
+            >
+              <img 
+                src={assets.profile} 
+                alt="profile" 
+                className="w-10 h-10 rounded-full object-cover border border-gray-700"
               />
-            </UserButton.MenuItems>
-          </UserButton>
+            </button>
+            
+            {/* Custom Profile Dropdown */}
+            <div className={`absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-md shadow-lg py-1 z-50 ${isProfileOpen ? 'block' : 'hidden'} group-hover:block`}>
+              <div className="px-4 py-2 border-b border-gray-700">
+                <p className="text-sm text-white font-medium truncate">{user.username || user.email || "User"}</p>
+              </div>
+              
+              <button
+                onClick={() => {
+                  setIsProfileOpen(false);
+                  navigate("/my-bookings");
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white flex items-center gap-2 cursor-pointer"
+              >
+                <TicketPlus className="w-4 h-4" />
+                My Bookings
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsProfileOpen(false);
+                  navigate("/profile"); // Add this route to App.jsx if not present
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white flex items-center gap-2 cursor-pointer"
+              >
+                <User className="w-4 h-4" />
+                Manage Account
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsProfileOpen(false);
+                  logout();
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white flex items-center gap-2 cursor-pointer"
+              >
+                <LogOut className="w-4 h-4" />
+                Logout
+              </button>
+            </div>
+          </div>
         )}
       </div>
 

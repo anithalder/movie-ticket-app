@@ -7,7 +7,8 @@ import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 
 const AddShows = () => {
-  const { axios, getToken, user, image_base_url } = useAppContext();
+  // Removed getToken
+  const { axios, user, image_base_url } = useAppContext();
 
   const currency = import.meta.env.VITE_CURRENCY;
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
@@ -19,9 +20,8 @@ const AddShows = () => {
 
   const fetchNowPlayingMovies = async () => {
     try {
-      const { data } = await axios.get("/api/show/now-playing", {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      });
+      // Removed headers object
+      const { data } = await axios.get("/api/movies/all");
 
       if (data.success) {
         setNowPlayingMovies(data.movies);
@@ -82,9 +82,8 @@ const AddShows = () => {
         showPrice: Number(showPrice),
       };
 
-      const { data } = await axios.post("/api/show/add", payload, {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      });
+      // Removed headers object
+      const { data } = await axios.post("/api/show/add", payload);
 
       if (data.success) {
         toast.success(data.message);
